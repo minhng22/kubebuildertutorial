@@ -5,7 +5,7 @@ import (
 	_ "fmt"
 	"sigs.k8s.io/controller-runtime/pkg/conversion"
 	"strings"
-	"tutorial.kubebuilder.io/project/api/v1"
+	"tutorial.kubebuilder.io/project/apis/batch/v1"
 )
 
 // ConvertTo converts this CronJob to the Hub version (v1).

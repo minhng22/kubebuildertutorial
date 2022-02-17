@@ -1,6 +1,7 @@
 domain: tutorial.kubebuilder.io
 layout:
 - go.kubebuilder.io/v3
+multigroup: true
 projectName: project
 repo: tutorial.kubebuilder.io/project
 resources:
@@ -28,5 +29,13 @@ resources:
   group: batch
   kind: CronJob
   path: tutorial.kubebuilder.io/project/api/v2
+  version: v2
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: tutorial.kubebuilder.io
+  group: config
+  kind: ProjectConfig
+  path: tutorial.kubebuilder.io/project/apis/config/v2
   version: v2
 version: "3"

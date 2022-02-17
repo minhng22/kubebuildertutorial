@@ -41,7 +41,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	batchv1 "tutorial.kubebuilder.io/project/api/v1"
+	batchv1 "tutorial.kubebuilder.io/project/apis/batch/v1"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -80,7 +80,7 @@ var _ = BeforeSuite(func() {
 	*/
 	By("bootstrapping test environment")
 	testEnv = &envtest.Environment{
-		CRDDirectoryPaths:     []string{filepath.Join("..", "config", "crd", "bases")},
+		CRDDirectoryPaths:     []string{filepath.Join("..", "..", "config", "crd", "bases")},
 		ErrorIfCRDPathMissing: true,
 	}
 
