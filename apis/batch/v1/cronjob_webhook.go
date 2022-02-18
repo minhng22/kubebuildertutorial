@@ -37,8 +37,6 @@ func (r *CronJob) SetupWebhookWithManager(mgr ctrl.Manager) error {
 		Complete()
 }
 
-// TODO(user): EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-
 func (r *CronJob) validateCronJobName() *field.Error {
 	if len(r.ObjectMeta.Name) > validationutils.DNS1035LabelMaxLength-11 {
 		// The job name length is 63 character like all Kubernetes objects
@@ -115,23 +113,17 @@ var _ webhook.Validator = &CronJob{}
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
 func (r *CronJob) ValidateCreate() error {
 	cronjoblog.Info("validate create", "name", r.Name)
-
-	// TODO(user): fill in your validation logic upon object creation.
 	return r.validateCronJob()
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
 func (r *CronJob) ValidateUpdate(old runtime.Object) error {
 	cronjoblog.Info("validate update", "name", r.Name)
-
-	// TODO(user): fill in your validation logic upon object update.
 	return r.validateCronJob()
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
 func (r *CronJob) ValidateDelete() error {
 	cronjoblog.Info("validate delete", "name", r.Name)
-
-	// TODO(user): fill in your validation logic upon object deletion.
 	return nil
 }

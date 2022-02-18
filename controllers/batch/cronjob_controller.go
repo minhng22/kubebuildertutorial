@@ -93,14 +93,16 @@ func (r *CronJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
 
-	// List all active jobs, and update the status
+	// List all active jobs, and log the status
 	var childJobs kbatch.JobList
 	if err := r.List(ctx, &childJobs, client.InNamespace(req.Namespace), client.MatchingFields{jobOwnerKey: req.Name}); err != nil {
 		log.Error(err, "unable to list child Jobs")
 		return ctrl.Result{}, err
 	}
 
-	// find the active list of jobs
+	// Find the active list of jobs
+	// Status should be able to be reconstituted from the state of the world, so it’s generally not a good idea to read
+	// from the status of the root object. Instead, you should reconstruct it every run
 	var activeJobs []*kbatch.Job
 	var successfulJobs []*kbatch.Job
 	var failedJobs []*kbatch.Job
@@ -115,7 +117,7 @@ func (r *CronJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 
 		return false, ""
 	}
-	// +kubebuilder:docs-gen:collapse=isJobFinished
+
 	getScheduledTimeForJob := func(job *kbatch.Job) (*time.Time, error) {
 		timeRaw := job.Annotations[scheduledTimeAnnotation]
 		if len(timeRaw) == 0 {
@@ -128,7 +130,6 @@ func (r *CronJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 		}
 		return &timeParsed, nil
 	}
-	// +kubebuilder:docs-gen:collapse=getScheduledTimeForJob
 
 	for i, job := range childJobs.Items {
 		_, finishedType := isJobFinished(&job)

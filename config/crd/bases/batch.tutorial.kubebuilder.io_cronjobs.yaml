@@ -36,25 +36,13 @@ spec:
             description: CronJobSpec defines the desired state of CronJob
             properties:
               concurrencyPolicy:
-                description: 'Specifies how to treat concurrent executions of a Job.
-                  Valid values are: - "Allow" (default): allows CronJobs to run concurrently;
-                  - "Forbid": forbids concurrent runs, skipping next run if previous
-                  run hasn''t finished yet; - "Replace": cancels currently running
-                  job and replaces it with a new one'
-                enum:
-                - Allow
-                - Forbid
-                - Replace
                 type: string
               failedJobsHistoryLimit:
-                description: The number of failed finished jobs to retain. This is
-                  a pointer to distinguish between explicit zero and not specified.
                 format: int32
-                minimum: 0
                 type: integer
               jobTemplate:
-                description: Specifies the job that will be created when executing
-                  a CronJob.
+                description: JobTemplateSpec describes the data a Job should have
+                  when created from a template
                 properties:
                   metadata:
                     description: 'Standard object''s metadata of the jobs created
@@ -8023,26 +8011,14 @@ spec:
                     type: object
                 type: object
               schedule:
-                description: The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
-                minLength: 0
                 type: string
               startingDeadlineSeconds:
-                description: Optional deadline in seconds for starting the job if
-                  it misses scheduled time for any reason.  Missed jobs executions
-                  will be counted as failed ones.
                 format: int64
-                minimum: 0
                 type: integer
-              successfulJobsHistoryLimit:
-                description: The number of successful finished jobs to retain. This
-                  is a pointer to distinguish between explicit zero and not specified.
+              successfulJobHistoryLimit:
                 format: int32
-                minimum: 0
                 type: integer
               suspend:
-                description: This flag tells the controller to suspend subsequent
-                  executions, it does not apply to already started executions.  Defaults
-                  to false.
                 type: boolean
             required:
             - jobTemplate
@@ -8052,7 +8028,9 @@ spec:
             description: CronJobStatus defines the observed state of CronJob
             properties:
               active:
-                description: A list of pointers to currently running jobs.
+                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                  of cluster Important: Run "make" to regenerate code after modifying
+                  this file'
                 items:
                   description: 'ObjectReference contains enough information to let
                     you inspect or modify the referred object. --- New uses of this
@@ -8115,14 +8093,12 @@ spec:
                   type: object
                 type: array
               lastScheduleTime:
-                description: Information when was the last time the job was successfully
-                  scheduled.
                 format: date-time
                 type: string
             type: object
         type: object
     served: true
-    storage: true
+    storage: false
     subresources:
       status: {}
   - name: v2
@@ -8146,25 +8122,13 @@ spec:
             description: CronJobSpec defines the desired state of CronJob
             properties:
               concurrencyPolicy:
-                description: 'Specifies how to treat concurrent executions of a Job.
-                  Valid values are: - "Allow" (default): allows CronJobs to run concurrently;
-                  - "Forbid": forbids concurrent runs, skipping next run if previous
-                  run hasn''t finished yet; - "Replace": cancels currently running
-                  job and replaces it with a new one'
-                enum:
-                - Allow
-                - Forbid
-                - Replace
                 type: string
               failedJobsHistoryLimit:
-                description: The number of failed finished jobs to retain. This is
-                  a pointer to distinguish between explicit zero and not specified.
                 format: int32
-                minimum: 0
                 type: integer
               jobTemplate:
-                description: Specifies the job that will be created when executing
-                  a CronJob.
+                description: JobTemplateSpec describes the data a Job should have
+                  when created from a template
                 properties:
                   metadata:
                     description: 'Standard object''s metadata of the jobs created
@@ -16133,7 +16097,7 @@ spec:
                     type: object
                 type: object
               schedule:
-                description: The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
+                description: CronSchedule describes a Cron schedule.
                 properties:
                   dayOfMonth:
                     description: specifies the day of the month during which the job
@@ -16154,22 +16118,12 @@ spec:
                     type: string
                 type: object
               startingDeadlineSeconds:
-                description: Optional deadline in seconds for starting the job if
-                  it misses scheduled time for any reason.  Missed jobs executions
-                  will be counted as failed ones.
                 format: int64
-                minimum: 0
                 type: integer
-              successfulJobsHistoryLimit:
-                description: The number of successful finished jobs to retain. This
-                  is a pointer to distinguish between explicit zero and not specified.
+              successfulJobHistoryLimit:
                 format: int32
-                minimum: 0
                 type: integer
               suspend:
-                description: This flag tells the controller to suspend subsequent
-                  executions, it does not apply to already started executions.  Defaults
-                  to false.
                 type: boolean
             required:
             - jobTemplate
@@ -16179,7 +16133,9 @@ spec:
             description: CronJobStatus defines the observed state of CronJob
             properties:
               active:
-                description: A list of pointers to currently running jobs.
+                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                  of cluster Important: Run "make" to regenerate code after modifying
+                  this file'
                 items:
                   description: 'ObjectReference contains enough information to let
                     you inspect or modify the referred object. --- New uses of this
@@ -16242,14 +16198,12 @@ spec:
                   type: object
                 type: array
               lastScheduleTime:
-                description: Information when was the last time the job was successfully
-                  scheduled.
                 format: date-time
                 type: string
             type: object
         type: object
     served: true
-    storage: false
+    storage: true
     subresources:
       status: {}
 status:

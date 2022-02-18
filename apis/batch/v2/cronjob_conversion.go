@@ -30,7 +30,6 @@ func (src *CronJob) ConvertTo(dstRaw conversion.Hub) error {
 		scheduleParts[4] = string(*schedule.DayOfWeek)
 	}
 	dst.Spec.Schedule = strings.Join(scheduleParts, " ")
-	// rote conversion
 
 	// ObjectMeta
 	dst.ObjectMeta = src.ObjectMeta

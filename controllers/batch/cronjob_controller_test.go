@@ -180,7 +180,7 @@ var _ = Describe("CronJob controller", func() {
 			testJob.SetOwnerReferences([]metav1.OwnerReference{*controllerRef})
 			Expect(k8sClient.Create(ctx, testJob)).Should(Succeed())
 			/*
-				Adding this Job to our test CronJob should trigger our controller’s reconciler logic.
+				Adding this Job to our test CronJob should trigger our controller’s Reconciler logic.
 				After that, we can write a test that evaluates whether our controller eventually updates our CronJob’s Status field as expected!
 			*/
 			By("By checking that the CronJob has one active Job")
@@ -200,7 +200,3 @@ var _ = Describe("CronJob controller", func() {
 	})
 
 })
-
-/*
-	After writing all this code, you can run `go test ./...` in your `controllers/` directory again to run your new test!
-*/
